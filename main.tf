@@ -1,14 +1,12 @@
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
-    # The "feature" block is required for AzureRM provider 2.x. 
-    # If you're using version 1.x, the "features" block is not allowed.
-    version = "~>2.0"
+      version = "~>2.0"
     features {}
      msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
 }
 
 # Create a resource group if it doesn't exist
-resource "azurerm_resource_group" "shabunevichterraformgroup" {
+resource "azurerm_resource_group" "terraformgroup" {
     name     = "shabunevichResourceGroup"
     location = "eastus"
 
@@ -22,7 +20,7 @@ resource "azurerm_virtual_network" "shabunevichterraformnetwork" {
     name                = "shabunevichVnet"
     address_space       = ["10.0.0.0/16"]
     location            = "eastus"
-    resource_group_name = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name = azurerm_resource_group.terraformgroup.name
 
     tags = {
         environment = "Terraform Demo"
@@ -33,7 +31,7 @@ resource "azurerm_virtual_network" "shabunevichterraformnetwork" {
 # Create subnet
 resource "azurerm_subnet" "shabunevichterraformsubnet" {
     name                 = "shabunevichSubnet"
-    resource_group_name  = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name  = azurerm_resource_group.terraformgroup.name
     virtual_network_name = azurerm_virtual_network.shabunevichterraformnetwork.name
     address_prefixes       = ["10.0.1.0/24"]
 }
@@ -42,7 +40,7 @@ resource "azurerm_subnet" "shabunevichterraformsubnet" {
 resource "azurerm_public_ip" "shabunevichterraformpublicip" {
     name                         = "shabunevichPublicIP"
     location                     = "eastus"
-    resource_group_name          = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name          = azurerm_resource_group.terraformgroup.name
     allocation_method            = "Dynamic"
 
     tags = {
@@ -54,7 +52,7 @@ resource "azurerm_public_ip" "shabunevichterraformpublicip" {
 resource "azurerm_network_security_group" "shabunevichterraformnsg" {
     name                = "shabunevichNetworkSecurityGroup"
     location            = "eastus"
-    resource_group_name = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name = azurerm_resource_group.terraformgroup.name
 
     security_rule {
         name                       = "SSH"
@@ -77,7 +75,7 @@ resource "azurerm_network_security_group" "shabunevichterraformnsg" {
 resource "azurerm_network_interface" "shabunevichterraformnic" {
     name                      = "shabunevichNIC"
     location                  = "eastus"
-    resource_group_name       = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name       = azurerm_resource_group.terraformgroup.name
 
     ip_configuration {
         name                          = "shabunevichNicConfiguration"
@@ -101,7 +99,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
 resource "random_id" "randomId" {
     keepers = {
         # Generate a new ID only when a new resource group is defined
-        resource_group = azurerm_resource_group. shabunevichterraformgroup.name
+        resource_group = azurerm_resource_group. terraformgroup.name
     }
 
     byte_length = 8
@@ -110,7 +108,7 @@ resource "random_id" "randomId" {
 # Create storage account for boot diagnostics
 resource "azurerm_storage_account" "mystorageaccount" {
     name                        = "diag${random_id.randomId.hex}"
-    resource_group_name         = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name         = azurerm_resource_group.terraformgroup.name
     location                    = "eastus"
     account_tier                = "Standard"
     account_replication_type    = "LRS"
@@ -131,7 +129,7 @@ output "tls_private_key" { value = tls_private_key.tf_ssh.private_key_pem }
 resource "azurerm_linux_virtual_machine" "shabunevichterraformvm" {
     name                  = "shabunevichVM"
     location              = "eastus"
-    resource_group_name   = azurerm_resource_group.shabunevichterraformgroup.name
+    resource_group_name   = azurerm_resource_group.terraformgroup.name
     network_interface_ids = [azurerm_network_interface.shabunevichterraformnic.id]
     size                  = "Standard_B1s"
 
