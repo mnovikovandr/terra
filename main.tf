@@ -1,13 +1,12 @@
-# Configure the Microsoft Azure Provider
+
 provider "azurerm" {
-      version = "~>2.0"
+    version = "~>2.0"
     features {}
      msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
 }
 
-# Create a resource group if it doesn't exist
-resource "azurerm_resource_group" "terraformgroup" {
-    name     = "shabunevichResourceGroup"
+resource "azurerm_resource_group" "novikovterraformgroup" {
+    name     = "novikovResourceGroup"
     location = "eastus"
 
     tags = {
@@ -16,11 +15,11 @@ resource "azurerm_resource_group" "terraformgroup" {
 }
 
 # Create virtual network
-resource "azurerm_virtual_network" "shabunevichterraformnetwork" {
-    name                = "shabunevichVnet"
+resource "azurerm_virtual_network" "novikovterraformnetwork" {
+    name                = "novikovVnet"
     address_space       = ["10.0.0.0/16"]
     location            = "eastus"
-    resource_group_name = azurerm_resource_group.terraformgroup.name
+    resource_group_name = azurerm_resource_group.novikovterraformgroup.name
 
     tags = {
         environment = "Terraform Demo"
@@ -29,18 +28,18 @@ resource "azurerm_virtual_network" "shabunevichterraformnetwork" {
 
 
 # Create subnet
-resource "azurerm_subnet" "shabunevichterraformsubnet" {
-    name                 = "shabunevichSubnet"
-    resource_group_name  = azurerm_resource_group.terraformgroup.name
-    virtual_network_name = azurerm_virtual_network.shabunevichterraformnetwork.name
+resource "azurerm_subnet" "novikovterraformsubnet" {
+    name                 = "novikovSubnet"
+    resource_group_name  = azurerm_resource_group.novikovterraformgroup.name
+    virtual_network_name = azurerm_virtual_network.novikovterraformnetwork.name
     address_prefixes       = ["10.0.1.0/24"]
 }
 
 # Create public IPs
-resource "azurerm_public_ip" "shabunevichterraformpublicip" {
-    name                         = "shabunevichPublicIP"
+resource "azurerm_public_ip" "novikovterraformpublicip" {
+    name                         = "novikovPublicIP"
     location                     = "eastus"
-    resource_group_name          = azurerm_resource_group.terraformgroup.name
+    resource_group_name          = azurerm_resource_group.novikovterraformgroup.name
     allocation_method            = "Dynamic"
 
     tags = {
@@ -49,10 +48,10 @@ resource "azurerm_public_ip" "shabunevichterraformpublicip" {
 }
 
 # Create Network Security Group and rule
-resource "azurerm_network_security_group" "shabunevichterraformnsg" {
-    name                = "shabunevichNetworkSecurityGroup"
+resource "azurerm_network_security_group" "novikovterraformnsg" {
+    name                = "novikovNetworkSecurityGroup"
     location            = "eastus"
-    resource_group_name = azurerm_resource_group.terraformgroup.name
+    resource_group_name = azurerm_resource_group.novikovterraformgroup.name
 
     security_rule {
         name                       = "SSH"
@@ -72,16 +71,16 @@ resource "azurerm_network_security_group" "shabunevichterraformnsg" {
 }
 
 # Create network interface
-resource "azurerm_network_interface" "shabunevichterraformnic" {
-    name                      = "shabunevichNIC"
+resource "azurerm_network_interface" "novikovterraformnic" {
+    name                      = "novikovNIC"
     location                  = "eastus"
-    resource_group_name       = azurerm_resource_group.terraformgroup.name
+    resource_group_name       = azurerm_resource_group.novikovterraformgroup.name
 
     ip_configuration {
-        name                          = "shabunevichNicConfiguration"
-        subnet_id                     = azurerm_subnet.shabunevichterraformsubnet.id
+        name                          = "novikovNicConfiguration"
+        subnet_id                     = azurerm_subnet.novikovterraformsubnet.id
         private_ip_address_allocation = "Dynamic"
-        public_ip_address_id          = azurerm_public_ip. shabunevichterraformpublicip.id
+        public_ip_address_id          = azurerm_public_ip. novikovterraformpublicip.id
     }
 
     tags = {
@@ -91,15 +90,15 @@ resource "azurerm_network_interface" "shabunevichterraformnic" {
 
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "example" {
-    network_interface_id      = azurerm_network_interface.shabunevichterraformnic.id
-    network_security_group_id = azurerm_network_security_group.shabunevichterraformnsg.id
+    network_interface_id      = azurerm_network_interface.novikovterraformnic.id
+    network_security_group_id = azurerm_network_security_group.novikovterraformnsg.id
 }
 
 # Generate random text for a unique storage account name
 resource "random_id" "randomId" {
     keepers = {
         # Generate a new ID only when a new resource group is defined
-        resource_group = azurerm_resource_group. terraformgroup.name
+        resource_group = azurerm_resource_group. novikovterraformgroup.name
     }
 
     byte_length = 8
@@ -108,7 +107,7 @@ resource "random_id" "randomId" {
 # Create storage account for boot diagnostics
 resource "azurerm_storage_account" "mystorageaccount" {
     name                        = "diag${random_id.randomId.hex}"
-    resource_group_name         = azurerm_resource_group.terraformgroup.name
+    resource_group_name         = azurerm_resource_group.novikovterraformgroup.name
     location                    = "eastus"
     account_tier                = "Standard"
     account_replication_type    = "LRS"
@@ -126,11 +125,11 @@ resource "tls_private_key" "tf_ssh" {
 output "tls_private_key" { value = tls_private_key.tf_ssh.private_key_pem }
 
 # Create virtual machine
-resource "azurerm_linux_virtual_machine" "shabunevichterraformvm" {
-    name                  = "shabunevichVM"
+resource "azurerm_linux_virtual_machine" "novikovterraformvm" {
+    name                  = "novikovVM"
     location              = "eastus"
-    resource_group_name   = azurerm_resource_group.terraformgroup.name
-    network_interface_ids = [azurerm_network_interface.shabunevichterraformnic.id]
+    resource_group_name   = azurerm_resource_group.novikovterraformgroup.name
+    network_interface_ids = [azurerm_network_interface.novikovterraformnic.id]
     size                  = "Standard_B1s"
 
     os_disk {
@@ -146,7 +145,7 @@ resource "azurerm_linux_virtual_machine" "shabunevichterraformvm" {
         version   = "latest"
     }
 
-    computer_name  = "shabunevichvm"
+    computer_name  = "novikov"
     admin_username = "azureuser"
     disable_password_authentication = true
 
