@@ -1,5 +1,9 @@
 variable "location" {}
 
+variable "name" {
+	default = "misha"
+}
+
 variable "prefix" {
   type    = string
   default = "my"
