@@ -1,8 +1,10 @@
 variable "name" {
+  type = string
 	default = "misha"
 }
 
 variable "location" {
+  type = string
   default = "westus"
 }
 
