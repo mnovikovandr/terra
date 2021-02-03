@@ -1,23 +1,5 @@
-terraform {
-  required_providers {
-    docker = {
-      source = "terraform-providers/docker"
-    }
-  }
-}
-
-provider "docker" {}
-
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
-}
-
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = "tutorial"
-  ports {
-    internal = 80
-    external = 8000
-  }
+provider "azurerm" {    
+    version = "2.45.1"
+    features {}
+     msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
 }
