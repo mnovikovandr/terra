@@ -1,7 +1,7 @@
-# variable "name" {
-#   type = string
-# 	default = "misha"
-# }
+variable "name" {
+  type = string
+# default = "misha"
+}
 
 # variable "surname" {
 #   type = string
