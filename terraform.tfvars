@@ -1,2 +1,0 @@
-location       = "somecountry"
-prefix         = "tf"
