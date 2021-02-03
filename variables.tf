@@ -5,7 +5,7 @@ variable "name" {
 
 variable "location" {
   type = string
-  default = "westus"
+  default = "westeurope"
 }
 
 variable "tags" {
