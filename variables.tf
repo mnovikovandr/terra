@@ -10,6 +10,6 @@ variable "tagKey" {
   default = "worker"
 }
 
-varable "tagValue" {
+variable "tagValue" {
   default = "new Worker!!!"
 }
