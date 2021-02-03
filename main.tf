@@ -3,7 +3,7 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
       version = ">= 2.26"  
- }
+   }
   }
 }
 
@@ -15,4 +15,9 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   name     = "myTFResourceGroup"
   location = "westus2"
+
+  tags = {
+    Enviroment = "Terraform Gettin Started"
+    Team = "DevOps"
+  }
 }
