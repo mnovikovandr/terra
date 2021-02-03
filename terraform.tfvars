@@ -1,2 +1,2 @@
-name = "newName"
+name = "Novikau"
 location = "westus"
