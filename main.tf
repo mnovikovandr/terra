@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "rg" {
   location = "westus2"
 
   tags = {
-    Enviroment = "Terraform Gettin Started"
+    Enviroment = "Terraform after changes"
     Team = "DevOps"
   }
 }
