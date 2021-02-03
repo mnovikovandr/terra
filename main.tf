@@ -14,7 +14,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rg" {
   name     = var.name
-  location = "westeurope"
+  location = var.location
 
   tags = {
     Enviroment = "Terraform after changes"
