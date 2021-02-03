@@ -17,6 +17,6 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 
   tags = {
-      "Worker" = "new Worker"
+      var.tags
   }
 }
