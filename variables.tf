@@ -6,10 +6,10 @@ variable "location" {
   default = "westus"
 }
 
-variable "tagKey" {
-  default = "worker"
-}
+variable "tags" {
+  type = map
 
-variable "tagValue" {
-  default = "new Worker!!!"
+  default = {
+    "Environment" = "Terraform GS"
+  }
 }
