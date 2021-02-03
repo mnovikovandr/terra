@@ -5,3 +5,7 @@ variable "name" {
 variable "location" {
   default = "westus"
 }
+
+variable "tagname" {
+  default = "worker" = "new Worker"
+}
