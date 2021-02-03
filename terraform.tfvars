@@ -1,1 +1,2 @@
 name = "newName"
+location = "westus"
