@@ -1,2 +1,2 @@
-# name = "Novikau"
+name = "Misha"
 # location = "westus"

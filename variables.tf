@@ -1,22 +1,22 @@
-variable "name" {
-  type = string
-	default = "misha"
-}
+# variable "name" {
+#   type = string
+# 	default = "misha"
+# }
 
-variable "surname" {
-  type = string
-  default = "baba"
-}
+# variable "surname" {
+#   type = string
+#   default = "baba"
+# }
 
-variable "location" {
-  type = string
-  default = "westeurope"
-}
+# variable "location" {
+#   type = string
+#   default = "westeurope"
+# }
 
-variable "tags" {
-  type = map
+# variable "tags" {
+#   type = map
 
-  default = {
-    "Environment" = "Terraform GS"
-  }
-}
+#   default = {
+#     "Environment" = "Terraform GS"
+#   }
+# }
