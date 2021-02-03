@@ -17,7 +17,6 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 
   tags = {
-    Enviroment = "Terraform after changes"
-    Team = "DevOps"
+      Team = "DevOps"
   }
 }
