@@ -6,6 +6,10 @@ variable "location" {
   default = "westus"
 }
 
-variable "tagname" {
-  default = "worker" = "new Worker"
+variable "tagKey" {
+  default = "worker"
+}
+
+varable "tagValue" {
+  default = "new Worker!!!"
 }
