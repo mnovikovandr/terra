@@ -1,2 +1,2 @@
-name = "Novikau"
-location = "westus"
+# name = "Novikau"
+# location = "westus"

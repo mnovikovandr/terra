@@ -3,6 +3,11 @@ variable "name" {
 	default = "misha"
 }
 
+variable "surname" {
+  type = string
+  default = "baba"
+}
+
 variable "location" {
   type = string
   default = "westeurope"
