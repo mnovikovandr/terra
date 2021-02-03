@@ -1,1 +1,1 @@
-name = "new name!!!!!"
+name = "newName"
