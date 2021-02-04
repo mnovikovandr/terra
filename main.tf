@@ -31,6 +31,6 @@ resource "azurerm_storage_account" "st1o1r1a1g1eaccount" {
 
 resource "azurerm_storage_container" "stcontainer" {
   name                  = "con"
-  storage_account_name  = azurerm_storage_account.storageaccount963.name
+  storage_account_name  = azurerm_storage_account.st1o1r1a1g1eaccount.name
   container_access_type = "private"
 }
