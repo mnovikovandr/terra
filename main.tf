@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "storagegroup" {
   location = "West Europe"
 }
 
-resource "azurerm_storage_account" "storageaccount" {
+resource "azurerm_storage_account" "storageaccount963" {
   name                     = "examplestoraccount"
   resource_group_name      = azurerm_resource_group.storagegroup.name
   location                 = azurerm_resource_group.storagegroup.location
@@ -31,6 +31,6 @@ resource "azurerm_storage_account" "storageaccount" {
 
 resource "azurerm_storage_container" "stcontainer" {
   name                  = "con"
-  storage_account_name  = azurerm_storage_account.storageaccount.name
+  storage_account_name  = azurerm_storage_account.storageaccount963.name
   container_access_type = "private"
 }
