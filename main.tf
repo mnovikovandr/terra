@@ -12,15 +12,15 @@ provider "azurerm" {
  msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
 }
 
-resource "azurerm_resource_group" "example" {
+resource "azurerm_resource_group" "misha" {
   name     = "example-resources"
   location = "West Europe"
 }
 
 resource "azurerm_storage_account" "example" {
   name                     = "examplestoraccount"
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
+  resource_group_name      = azurerm_resource_group.misha.name
+  location                 = azurerm_resource_group.misha.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
