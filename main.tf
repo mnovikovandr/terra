@@ -17,8 +17,8 @@ resource "azurerm_resource_group" "storagegroup" {
   location = "West Europe"
 }
 
-resource "azurerm_storage_account" "storageaccount963" {
-  name                     = "examplestoraccount"
+resource "azurerm_storage_account" "st1o1r1a1g1eaccount" {
+  name                     = "examples1t1o1raccount"
   resource_group_name      = azurerm_resource_group.storagegroup.name
   location                 = azurerm_resource_group.storagegroup.location
   account_tier             = "Standard"
