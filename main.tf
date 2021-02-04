@@ -13,20 +13,24 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "mygroup"
+  name     = "example-resources"
   location = "West Europe"
 }
 
 resource "azurerm_storage_account" "example" {
-  name = "mystore"
-  resource_group_name = "${azure_resource_group.example.name}"
-  location = "${azure_resource_group.example.location}"
-  account_tier = "Standart"
+  name                     = "examplestoraccount"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = azurerm_resource_group.example.location
+  account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  tags = {
+    environment = "staging"
+  }
 }
 
 resource "azurerm_storage_container" "example" {
-  name = "terraformtest"
-  storage_account_name = "${azurerm_storage_account.example.name}"
+  name                  = "vhds"
+  storage_account_name  = azurerm_storage_account.example.name
   container_access_type = "private"
 }
