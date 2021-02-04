@@ -27,6 +27,6 @@ resource "azurerm_storage_account" "store" {
 
 resource "azurerm_storage_container" "mycontainer" {
   name = "terraformtest"
-  resource_group_name = "${azure_resource_group.mygroup.name}"
-  resource_account_name = "${azure_storage_account.store.name}"
+  storage_account_name = "${azurerm_storage_account.store.name}"
+  container_access_type = "private"
 }
