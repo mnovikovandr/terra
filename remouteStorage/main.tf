@@ -36,7 +36,7 @@ data "azurerm_resource_group" "storagegrouptest" {
 
 terraform {
     backend "azurerm" {
-        storage_account_name = "misha87account"
+        storage_account_name = "csb100320010eec47c0"
         container_name = "storagecontainer"
         key = "terraform.tfstage"
     }
