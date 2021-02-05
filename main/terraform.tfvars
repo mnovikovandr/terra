@@ -1,2 +1,0 @@
-name = "Misha"
-# location = "westus"
