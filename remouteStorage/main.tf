@@ -17,3 +17,5 @@ resource "azurerm_storage_container" "mishastorcontainer" {
   storage_account_name  = "cloud-shell-storage-westeurope"
   container_access_type = "private"
 }
+
+
