@@ -14,3 +14,9 @@ terraform {
         key = "remoute.terraform.tfstage"
     }
 }
+
+resource "azurerm_resource_group" "ymngroupnewtest" {
+  name     = "ymngroupnew"
+  location = "West Europe"
+}
+
