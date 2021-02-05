@@ -18,10 +18,6 @@ resource "azurerm_storage_container" "csb100320010eec47c0" {
   container_access_type = "private"
 }
 
-data "azurerm_resource_group" "storagegrouptest" {
-    name = "storagegrouptest"
-}
-
 terraform {
     backend "azurerm" {
         storage_account_name = "csb100320010eec47c0"
