@@ -1,5 +1,6 @@
 data "azurerm_resource_group" "storagegroup" {
     name = "storagegroup"
+    features {}
 }
 
 terraform {
