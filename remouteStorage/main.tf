@@ -12,15 +12,10 @@ provider "azurerm" {
  msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
 }
 
-resource "azurerm_resource_group" "storagegrouptest" {
-  name     = "storagegrouptest"
-  location = "West Europe"
-}
-
 resource "azurerm_storage_account" "misha87account" {
   name                     = "misha87account"
-  resource_group_name      = azurerm_resource_group.storagegrouptest.name
-  location                 = azurerm_resource_group.storagegrouptest.location
+  resource_group_name      = "cloud-shell-storage-westeurope"
+  location                 = "West Europe"
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
@@ -29,9 +24,9 @@ resource "azurerm_storage_account" "misha87account" {
   }
 }
 
-resource "azurerm_storage_container" "storagecontainer" {
+resource "azurerm_storage_container" "csb100320010eec47c0" {
   name                  = "storagecontainer"
-  storage_account_name  = azurerm_storage_account.misha87account.name
+  storage_account_name  = "cloud-shell-storage-westeurope"
   container_access_type = "private"
 }
 
