@@ -17,11 +17,3 @@ resource "azurerm_storage_container" "csb100320010eec47c0" {
   storage_account_name  = "cloud-shell-storage-westeurope"
   container_access_type = "private"
 }
-
-terraform {
-    backend "azurerm" {
-        storage_account_name = "csb100320010eec47c0"
-        container_name = "storagecontainer"
-        key = "terraform.tfstage"
-    }
-}
