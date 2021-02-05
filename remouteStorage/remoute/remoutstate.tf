@@ -10,7 +10,7 @@ data "azurerm_resource_group" "ymngroup" {
 terraform {
     backend "azurerm" {
         storage_account_name = "ymnstoreaccount"
-        container_name = "ymnstoreaccount"
+        container_name = "storecontainer"
         key = "remoute.terraform.tfstage"
     }
 }
