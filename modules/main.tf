@@ -1,4 +1,3 @@
 module "moduletests" {
-    source = "github.com/mnovikovandr/terra/modules/moduletests"
- 
+    source = "github.com/mnovikovandr/terra/modules/moduletests" 
 }
