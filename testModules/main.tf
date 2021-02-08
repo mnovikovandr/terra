@@ -3,6 +3,6 @@ module "moduletests" {
 }
 
 resource "azurerm_resource_group" "res" {
-  name     = "groupAfterModule"
+  name     = "groupAfterModuleChange"
   location = "West Europe"
 }
