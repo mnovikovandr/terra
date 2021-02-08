@@ -1,18 +1,18 @@
 resource "azurerm_resource_group" "example" {
-    name = var.resource_group
-    location = var.location
+    name = resource_group
+    location = location
 }
 
 resource "azurerm_virtual_network" "example" {
-    name = var.vnet
+    name = vnet
     location = azurerm_resource_group.example.location
     resource_group_name = azurerm_resource_group.example.name
-    address_space = [var.address_space]
+    address_space = [address_space]
 }
 
 resource "azurerm_subnet" "subnet" {
-    name = var.subnet_name
+    name = subnet_name
     virtual_network_name = azurerm_virtual_network.example.name
     resource_group_name = azurerm_resource_group.example.name
-    address_prefixes = var.subnet_prefix
+    address_prefixes = subnet_prefix
 }
