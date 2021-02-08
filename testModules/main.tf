@@ -1,0 +1,3 @@
+module "moduletests" {
+    source = "./moduletests"
+}
