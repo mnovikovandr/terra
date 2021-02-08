@@ -24,5 +24,5 @@ variable "subnet_name" {
 }
 
 variable "subnet_prefix" {
-    default = "10.0.1.0/24"
+    default = ["10.0.1.0/24"]
 }
