@@ -18,3 +18,11 @@ variable "vnet" {
 variable "address_space" {
     default = "10.0.0.0/16"
 }
+
+variable "subnet_name" {
+    default = "subnet-1"
+}
+
+variable "subnet_perfix" {
+    default = "10.0.0.0/24"
+}
