@@ -23,6 +23,6 @@ variable "subnet_name" {
     default = "subnet-1"
 }
 
-variable "subnet_perfix" {
+variable "subnet_prefix" {
     default = "10.0.0.0/24"
 }
