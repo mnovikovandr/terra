@@ -1,3 +1,4 @@
 module "moduletests" {
-    source = "git@github.com:mnovikovandr/terra/tree/main/modules/moduletests.git"
+    source = "https://github.com/mnovikovandr/terra/tree/main/modules/moduletests"
+ 
 }
