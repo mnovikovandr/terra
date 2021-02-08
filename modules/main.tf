@@ -1,4 +1,4 @@
 module "moduletests" {
-    source = "github.com/mnovikovandr/terra/tree/main/modules/"
+    source = "github.com/mnovikovandr/terra/modules/moduletests"
  
 }
