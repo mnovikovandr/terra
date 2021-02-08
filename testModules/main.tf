@@ -1,3 +1,3 @@
-module "testModules" {
-    source = "git@github.com:mnovikovandr/terra.git"
+module "moduletests" {
+    source = "github.com/mnovikovandr/terra/modules/remouteModules/moduletests"
 }
