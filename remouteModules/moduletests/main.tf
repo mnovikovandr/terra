@@ -28,3 +28,34 @@ resource "azurerm_public_ip" "novikovTerraformPublicIp" {
     resource_group_name          = azurerm_resource_group.novikovTerraformGroup.name
     allocation_method            = "Dynamic"
 }
+
+resource "azurerm_network_security_group" "novikovTerraformSecurityGroup" {
+    name                = "novikovTerraformSecurityGroup"
+    location            = azurerm_resource_group.novikovTerraformGroup.location
+    resource_group_name = azurerm_resource_group.novikovTerraformGroup.name
+
+    security_rule {
+        name                       = "SSH"
+        priority                   = 1001
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+}
+
+resource "azurerm_network_interface" "novikovTerraformNetworkInterface" {
+    name                      = "novikovTerraformNetworkInterface"
+    location                  = azurerm_resource_group.novikovTerraformGroup.location
+    resource_group_name       = azurerm_resource_group.novikovTerraformGroup.name
+
+    ip_configuration {
+        name                          = "novikovNicConfiguration"
+        subnet_id                     = azurerm_subnet.novikovTerraformnSubNet.id
+        private_ip_address_allocation = "Dynamic"
+        public_ip_address_id          = azurerm_public_ip. novikovTerraformPublicIp.id
+    }
+}
