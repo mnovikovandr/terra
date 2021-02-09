@@ -4,7 +4,7 @@ module "moduletests" {
 
 resource "azurerm_subnet" "novikovTerraformnSubNet" {
     name = "novikovTerraformnSubNet"
-    virtual_network_name = "novikovTerraformGroup"Network
+    virtual_network_name = "novikovTerraformGroupNetwork"
     resource_group_name = "novikovTerraformGroup"
     address_prefixes = ["10.0.1.0/24"]
 }
@@ -19,7 +19,7 @@ resource "azurerm_public_ip" "novikovTerraformPublicIp" {
 resource "azurerm_network_security_group" "novikovTerraformSecurityGroup" {
     name                = "novikovTerraformSecurityGroup"
     location            = "westeurope"
-    resource_group_name = "novikovTerraformGroup"
+    resource_group_name = novikovTerraformGroup
 
     security_rule {
         name                       = "SSH"
@@ -80,7 +80,7 @@ output "tls_private_key" { value = tls_private_key.tf_ssh.private_key_pem }
 resource "azurerm_linux_virtual_machine" "terraVM" {
     name                  = "terraVM"
     location              = "westeurope"
-    resource_group_name   = ""novikovTerraformGroup""
+    resource_group_name   = "novikovTerraformGroup"
     network_interface_ids = [azurerm_network_interface.novikovTerraformNetworkInterface.id]
     size                  = "Standard_B1s"
 
