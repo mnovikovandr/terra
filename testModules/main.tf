@@ -59,18 +59,6 @@ resource "random_id" "randomId" {
     byte_length = 8
 }
 
-resource "azurerm_storage_account" "mystorageaccount" {
-    name                        = "mystorageaccount"
-    resource_group_name         = "novikovTerraformGroup"
-    location                    = "eastus"
-    account_tier                = "Standard"
-    account_replication_type    = "LRS"
-
-    tags = {
-        environment = "Terraform Demo"
-    }
-}
-
 resource "tls_private_key" "tf_ssh" {
   algorithm = "RSA"
   rsa_bits = 4096
@@ -104,9 +92,5 @@ resource "azurerm_linux_virtual_machine" "terraVM" {
     admin_ssh_key {
         username       = "azureuser"
         public_key     = tls_private_key.tf_ssh.public_key_openssh
-    }
-
-    boot_diagnostics {
-        storage_account_uri = azurerm_storage_account.mystorageaccount.primary_blob_endpoint
-    }
+    } 
 }
