@@ -1,7 +1,7 @@
-provider "azurerm" {
-   features {}
-   msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
-}
+# provider "azurerm" {
+#    features {}
+#    msi_endpoint = "http://169.254.169.254/metadata/identity/oauth2/token"
+# }
 
 # variable "resource_group" {
 #     default = "testRemouteModuleGroup"
