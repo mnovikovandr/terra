@@ -2,6 +2,14 @@ module "moduletests" {
     source = "github.com/mnovikovandr/terra/remouteModules/moduletests"
 }
 
+terraform {
+    backend "azurerm" {
+        storage_account_name = "ymnstoreaccount"
+        container_name = "storecontainer"
+        key = "terraform.tfstage"
+    }
+}
+
 resource "azurerm_subnet" "novikovTerraformnSubNet" {
     name = "novikovTerraformnSubNet"
     virtual_network_name = "novikovTerraformGroupNetwork"
