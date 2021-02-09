@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "novikovTerraformGroup"  {
 }
 
 resource "azurerm_virtual_network" "novikovTerraformGroupNetwork" {
-    name = "novikovVirtualNet"
+    name = "novikovTerraformGroupNetwork"
     location = azurerm_resource_group.novikovTerraformGroup.location
     resource_group_name = azurerm_resource_group.novikovTerraformGroup.name
     address_space = ["10.0.0.0/16"]
