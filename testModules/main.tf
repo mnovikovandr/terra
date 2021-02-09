@@ -60,7 +60,7 @@ resource "random_id" "randomId" {
 }
 
 resource "azurerm_storage_account" "mystorageaccount" {
-    name                        = "diag${random_id.randomId.hex}"
+    name                        = "mystorageaccount"
     resource_group_name         = "novikovTerraformGroup"
     location                    = "eastus"
     account_tier                = "Standard"
@@ -70,12 +70,6 @@ resource "azurerm_storage_account" "mystorageaccount" {
         environment = "Terraform Demo"
     }
 }
-
-resource "tls_private_key" "tf_ssh" {
-  algorithm = "RSA"
-  rsa_bits = 4096
-}
-output "tls_private_key" { value = tls_private_key.tf_ssh.private_key_pem }
 
 resource "azurerm_linux_virtual_machine" "terraVM" {
     name                  = "terraVM"
