@@ -4,22 +4,22 @@ module "moduletests" {
 
 resource "azurerm_subnet" "novikovTerraformnSubNet" {
     name = "novikovTerraformnSubNet"
-    virtual_network_name = novikovTerraformGroupNetwork
-    resource_group_name = novikovTerraformGroup
+    virtual_network_name = "novikovTerraformGroup"Network
+    resource_group_name = "novikovTerraformGroup"
     address_prefixes = ["10.0.1.0/24"]
 }
 
 resource "azurerm_public_ip" "novikovTerraformPublicIp" {
     name                         = "novikovPublicIP"
     location                     = "westeurope"
-    resource_group_name          = novikovTerraformGroup
+    resource_group_name          = "novikovTerraformGroup"
     allocation_method            = "Dynamic"
 }
 
 resource "azurerm_network_security_group" "novikovTerraformSecurityGroup" {
     name                = "novikovTerraformSecurityGroup"
     location            = "westeurope"
-    resource_group_name = novikovTerraformGroup
+    resource_group_name = "novikovTerraformGroup"
 
     security_rule {
         name                       = "SSH"
@@ -37,7 +37,7 @@ resource "azurerm_network_security_group" "novikovTerraformSecurityGroup" {
 resource "azurerm_network_interface" "novikovTerraformNetworkInterface" {
     name                      = "novikovTerraformNetworkInterface"
     location                  = "westeurope"
-    resource_group_name       = novikovTerraformGroup
+    resource_group_name       = "novikovTerraformGroup"
 
     ip_configuration {
         name                          = "novikovNicConfiguration"
@@ -54,14 +54,14 @@ resource "azurerm_network_interface_security_group_association" "example" {
 
 resource "random_id" "randomId" {
     keepers = {
-        resource_group = novikovTerraformGroup
+        resource_group = "novikovTerraformGroup"
     }
     byte_length = 8
 }
 
 resource "azurerm_storage_account" "mystorageaccount" {
     name                        = "diag${random_id.randomId.hex}"
-    resource_group_name         = novikovTerraformGroup
+    resource_group_name         = "novikovTerraformGroup"
     location                    = "eastus"
     account_tier                = "Standard"
     account_replication_type    = "LRS"
@@ -80,7 +80,7 @@ output "tls_private_key" { value = tls_private_key.tf_ssh.private_key_pem }
 resource "azurerm_linux_virtual_machine" "terraVM" {
     name                  = "terraVM"
     location              = "westeurope"
-    resource_group_name   = "novikovTerraformGroup"
+    resource_group_name   = ""novikovTerraformGroup""
     network_interface_ids = [azurerm_network_interface.novikovTerraformNetworkInterface.id]
     size                  = "Standard_B1s"
 
