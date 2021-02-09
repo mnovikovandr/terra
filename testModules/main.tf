@@ -102,3 +102,8 @@ resource "azurerm_linux_virtual_machine" "terraVM" {
         public_key     = tls_private_key.tf_ssh.public_key_openssh
     } 
 }
+
+resource "azurerm_resource_group" "terraformGroup"  {
+    name = "terraformGroup"
+    location = "westeurope"
+}
