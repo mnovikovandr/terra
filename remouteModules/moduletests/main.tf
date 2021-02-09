@@ -59,3 +59,27 @@ resource "azurerm_network_interface" "novikovTerraformNetworkInterface" {
         public_ip_address_id          = azurerm_public_ip. novikovTerraformPublicIp.id
     }
 }
+
+resource "azurerm_network_interface_security_group_association" "example" {
+    network_interface_id      = azurerm_network_interface.novikovTerraformNetworkInterface.id
+    network_security_group_id = azurerm_network_security_group.novikovTerraformSecurityGroup.id
+}
+
+resource "random_id" "randomId" {
+    keepers = {
+        resource_group = azurerm_resource_group.novikovTerraformGroup.name
+    }
+    byte_length = 8
+}
+
+resource "azurerm_storage_account" "mystorageaccount" {
+    name                        = "diag${random_id.randomId.hex}"
+    resource_group_name         = azurerm_resource_group.novikovTerraformGroup.name
+    location                    = "eastus"
+    account_tier                = "Standard"
+    account_replication_type    = "LRS"
+
+    tags = {
+        environment = "Terraform Demo"
+    }
+}
