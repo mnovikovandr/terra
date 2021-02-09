@@ -100,13 +100,4 @@ resource "azurerm_linux_virtual_machine" "terraVM" {
     computer_name  = "novikov"
     admin_username = "azureuser"
     disable_password_authentication = true
-
-    admin_ssh_key {
-        username       = "azureuser"
-        public_key     = tls_private_key.tf_ssh.public_key_openssh
-    }
-
-    boot_diagnostics {
-        storage_account_uri = azurerm_storage_account.mystorageaccount.primary_blob_endpoint
-    }
 }
