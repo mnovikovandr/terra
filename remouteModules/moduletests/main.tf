@@ -21,3 +21,10 @@ resource "azurerm_subnet" "novikovTerraformnSubNet" {
     resource_group_name = azurerm_resource_group.novikovTerraformGroup.name
     address_prefixes = ["10.0.1.0/24"]
 }
+
+resource "azurerm_public_ip" "novikovTerraformPublicIp" {
+    name                         = "novikovPublicIP"
+    location                     = azurerm_resource_group.novikovTerraformGroup.location
+    resource_group_name          = azurerm_resource_group.novikovTerraformGroup.name
+    allocation_method            = "Dynamic"
+}
