@@ -19,7 +19,7 @@ resource "azurerm_public_ip" "novikovTerraformPublicIp" {
 resource "azurerm_network_security_group" "novikovTerraformSecurityGroup" {
     name                = "novikovTerraformSecurityGroup"
     location            = "westeurope"
-    resource_group_name = novikovTerraformGroup
+    resource_group_name = "novikovTerraformGroup"
 
     security_rule {
         name                       = "SSH"
