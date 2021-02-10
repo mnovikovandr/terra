@@ -14,7 +14,7 @@ resource "azurerm_subnet" "novikovTerraformnSubNet" {
     name = "novikovTerraformnSubNet"
     virtual_network_name = "novikovTerraformGroupNetwork"
     resource_group_name = "novikovTerraformGroup"
-    address_prefixes = ["10.0.2.0/24"]
+    address_prefixes = ["10.0.1.0/24"]
 }
 
 resource "azurerm_public_ip" "novikovTerraformPublicIp" {
@@ -104,6 +104,6 @@ resource "azurerm_linux_virtual_machine" "terraVM" {
 }
 
 resource "azurerm_resource_group" "terraformGroup"  {
-    name = "terraformGroup"
+    name = "terraGroup"
     location = "westeurope"
 }
