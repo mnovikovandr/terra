@@ -31,7 +31,8 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: practice, my-app
+    app: my-app
+    app: practice
   ports:
   - port: 80
     targetPort: 80
