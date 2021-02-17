@@ -32,8 +32,8 @@ spec:
   type: LoadBalancer
   selector:
     app: 
-    - practice
-    - my-app
+      practice
+      my-app
   ports:
   - port: 80
     targetPort: 80
