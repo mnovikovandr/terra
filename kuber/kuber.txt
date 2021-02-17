@@ -1,0 +1,114 @@
+
+
+az group create --name myResourceGroup --location eastus
+
+az aks create --resource-group myResourceGroup --name myAKSCluster --node-count 1 --enable-addons monitoring --generate-ssh-keys
+
+az aks install-cli
+
+az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
+
+az group delete --name myResourceGroup --yes --no-wait
+
+kubectl get deployment -o wide
+
+kubectl delete pod my-deployment-746f5c5d87-hq849
+
+kubectl create -f pod.yaml
+
+kubectl delete all --all
+
+kubectl exec my-pod -it -- bash
+
+kubectl get nodes -o wide
+
+kubectl set image deployment my-deployment '*=nginx:1.11'
+
+kubectl describe deployments my-deployment | grep nginx
+
+kubectl get pod --show-labels
+
+kubectl port-forward my-deployment-746f5c5d87-ct2jr 8005:80 &
+
+kubectl get svc (services)
+
+kubectl get ep (endpoints)
+
+kubectl run -t -i --rm --image amouat/network-utils test bash
+
+kubectl get svc my-service -o json
+
+kubectl get svc my-service -o yaml
+
+kubectl logs my-deployment-746f5c5d87-ct2jr
+
+cat etc/resolv.conf
+
+
+
+
+
+
+
+my-service.default.svc.cluster.local
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+    - image: nginx:1.12
+      name: nginx
+      ports:
+        - containerPort: 80
+
+
+----------------
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-ReplicaSet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app-1
+  template:
+    metadata:
+      labels:
+        app: my-app-1
+    spec: 
+      containers:
+        - image: nginx:1.13
+          name: nginx
+          ports:
+            - containerPort: 80          
+
+
+------------------
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels: my-app
+  strategy: 
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate 
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - image: nginx:1.12
+          name: nginx
+          ports:
+            - containerPort: 80              
