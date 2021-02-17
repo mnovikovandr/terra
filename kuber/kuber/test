@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-02-15T07:39:23Z"
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:ports:
+          .: {}
+          k:{"port":80,"protocol":"TCP"}:
+            .: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector:
+          .: {}
+          f:app: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2021-02-15T07:39:23Z"
+  name: my-service
+  namespace: default
+  resourceVersion: "1260"
+  selfLink: /api/v1/namespaces/default/services/my-service
+  uid: 7b0b3ea7-104a-4984-bd71-2ee00202a75d
+spec:
+  clusterIP: 10.0.246.125
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: my-app
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
