@@ -1,0 +1,49 @@
+{{- if .Values.content }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web.fullname" . }}-content
+  labels:
+    {{- include "web.labels" . | nindent 4 }}
+data:
+  {{- range .Values.content }}
+  {{ .name }}: {{ toYaml .content | indent 4 }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.sitesConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web.fullname" . }}-sites
+  labels:
+    {{- include "web.labels" . | nindent 4 }}
+data:
+  {{- range .Values.sitesConfig }}
+  {{ .name }}: {{ toYaml .content | indent 4 }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.modulesConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web.fullname" . }}-modules
+  labels:
+    {{- include "web.labels" . | nindent 4 }}
+data:
+  {{- range .Values.modulesConfig }}
+  {{ .name }}: {{ toYaml .content | indent 4 }}
+  {{- end }}
+{{- end }}
+---
+{{- if .Values.nginxConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web.fullname" . }}-nginx
+  labels:
+    {{- include "web.labels" . | nindent 4 }}
+data:
+  nginx.conf: {{ toYaml .Values.nginxConfig | indent 4 }}
+{{- end }}

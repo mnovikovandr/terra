@@ -1,0 +1,134 @@
+{{- $fullname := (include "web.fullname" .) -}}
+apiVersion: apps/v1
+kind: {{ .Values.kind }}
+metadata:
+  name: {{ include "web.fullname" . }}
+  labels:
+    {{- include "web.labels" . | nindent 4 }}
+spec:
+  {{- if not (eq .Values.kind "DaemonSet") }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "web.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.hostNetwork }}
+      hostNetwork: {{ .Values.hostNetwork }}
+      dnsPolicy: ClusterFirstWithHostNet
+      {{- end }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "web.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.image.repository }}:{{ include "web.imageTag" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: main
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: main
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: main
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          volumeMounts:
+            {{- if .Values.content }}
+            - name: content
+              mountPath: "/usr/share/nginx/html"
+              readOnly: true
+            {{- end }}
+            {{- if .Values.nginxConfig }}
+            - name: nginx
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            {{- end }}
+            {{- if or .Values.sitesConfig .Values.sitesConfigMap }}
+            - name: sites
+              mountPath: "/etc/nginx/conf.d"
+              readOnly: true
+            {{- end }}
+            {{- if or .Values.modulesConfig .Values.modulesConfigMap }}
+            - name: modules
+              mountPath: "/etc/nginx/modules.d"
+              readOnly: true
+            {{- end }}
+            {{- with .Values.mounts }}
+            {{- range . }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              readOnly: {{ .readOnly }}
+            {{- end }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        {{- with .Values.mounts }}
+        {{- range . }}
+        - name: {{ .name }}
+          {{- toYaml .source | nindent 10 }}
+        {{- end }}
+        {{- end }}
+        {{- if .Values.content }}
+        - name: content
+          configMap:
+            name: {{ if .Values.contentMap -}}
+                         {{- .Values.contentMap -}}
+                       {{- else -}}
+                         {{- $fullname }}-content
+                       {{- end }}
+        {{- end }}
+        {{- if .Values.sitesConfig }}
+        - name: sites
+          configMap:
+            name: {{ if .Values.configMap -}}
+                         {{- .Values.configMap -}}
+                       {{- else -}}
+                         {{- $fullname }}-sites
+                       {{- end }}
+        {{- end }}
+        {{- if .Values.modulesConfig }}
+        - name: modules
+          configMap:
+            name: {{ if .Values.configMap -}}
+                         {{- .Values.configMap -}}
+                       {{- else -}}
+                         {{- $fullname }}-modules
+                       {{- end }}
+        {{- end }}
+        {{- if .Values.nginxConfig }}
+        - name: nginx
+          configMap:
+            name: {{ $fullname }}-nginx
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
