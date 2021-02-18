@@ -1,0 +1,9 @@
+image:
+  repository: nginx
+  tagOverride: 1.13
+kind: Deployment
+replicaCount: 2
+service:
+  port: 80
+  type: LoadBalancer
+
