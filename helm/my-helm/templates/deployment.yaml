@@ -16,4 +16,4 @@ spec:
         - image: {{ .Values.image.repository }}:{{ .Values.image.tagOverride }}
           name: {{ .Values.name }}
           ports:
-            - containerPort: {{ .Values.service.port }}   
+            - containerPort: 80    

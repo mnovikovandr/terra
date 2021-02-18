@@ -8,3 +8,6 @@ service:
   port: 80
   type: LoadBalancer
 
+
+
+helm upgrade -f myvalues.yaml -f override.yaml redis ./redis
