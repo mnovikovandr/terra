@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: {{ .Values.kind }}
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Values.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -10,10 +10,10 @@ spec:
   template:
     metadata:
       labels: 
-        app: {{ .Chart.Name }}
+        app: {{ .Values.name }}
     spec: 
       containers:
         - image: {{ .Values.image.repository }}:{{ .Values.image.tagOverride }}
-          name: {{ .Chart.Name }}
+          name: {{ .Values.name }}
           ports:
             - containerPort: 80    

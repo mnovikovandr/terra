@@ -1,3 +1,4 @@
+name: my-test
 image:
   repository: nginx
   tagOverride: 1.13
