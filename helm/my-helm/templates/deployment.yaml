@@ -5,7 +5,8 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: nginx
+    matchLabels: 
+      app: nginx
   template:
     metadata:
       labels: 
