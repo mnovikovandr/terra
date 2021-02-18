@@ -13,6 +13,6 @@ spec:
     spec: 
       containers:
         - name: {{ .Chart.Name }}
-          image: {{ .Values.image.repository }}:{{ .Values.tagOverride }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tagOverride }}
           ports:
               containerPort: 80    
