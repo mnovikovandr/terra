@@ -7,6 +7,6 @@ spec:
   selector:
     app: {{ .Chart.Name }}
   ports:
-  - port: {{ .Values.service.port }}
+  - port: 80
     targetPort: 80
     nodePort: 30011 
